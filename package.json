@@ -1,7 +1,7 @@
 {
   "name": "pair-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "Pair Project Debby Ria dan Ratih Sanjaya Wahyuningrum",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,5 +14,16 @@
     "express": "^4.17.3",
     "pg": "^8.7.3",
     "sequelize": "^6.17.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/debbyria/pairProject-phase1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/debbyria/pairProject-phase1/issues"
+  },
+  "homepage": "https://github.com/debbyria/pairProject-phase1#readme",
+  "devDependencies": {
+    "sequelize-cli": "^6.4.1"
   }
 }
