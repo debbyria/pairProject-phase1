@@ -197,27 +197,12 @@
         justify-content: center;
         height: 100%;
       ">
-    <p class="title" style="color: rgb(114, 109, 109);">Product Detail</p>
-      <div style="
-          background-color: white;
-          margin: 0px 80px;
-          padding: 30px 80px;
-          border-radius: 20px;
-        ">
-      <h2 class="title" style="font-size: 50px;"><%= product.productName %> </h2>
       <div style="display: flex; align-items: center; flex-direction: column; width: 15vw; height: 15vw;">
-        <img style="width: 19vw; height: 19vw; align-items: center;" src="<%= product.imageUrl %>"> 
-      </div><br><br><br>
-      <div style="font-size: 20px;">
-        <p><b style="font-weight: 700;">Category: </b><%= product.Category.categoryName %> </p><br>
-        <p><b style="font-weight: 700;">Updated At: </b><%= formatDate(product.updatedAt) %> </p><br>
-        <p style="font-weight: 700;"><b>Price: </b><%= product.formatPrice() %> </p><br>
-        <b style="font-weight: 700;">Description: </b>
-        <pre style="font-family: Cantarell;"><%= product.description %></pre>
-      </div><br>
-      <div class="w3-container">
-        <p><button class="w3-button w3-pink"><a href="http://localhost:3000/products/<%= product.id %>/<%= userId %>">Buy Now</a></button></p>    
+        <img style="width: 12vw; height: 12vw; align-items: center;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9qL6RJr8P8dyCdGypWz1ajJ-lJHH1SXPzusQz47Q_KQbJx5WRE318CJ3dEFvu82B_rvQ&usqp=CAU"> 
       </div>
+      <h2 class="title" style="font-size: 40px;">Success!</h2><br>
+      <h2 class="title" style="font-size: 20px;">Chingu, your order will be sent to in 3 days due to high demand session.</h2>
+      <h2 class="title" style="font-size: 20px;">Please wait for your package with heart full of happiness. ❤(◕‿◕)❤</h2>
       
       </div>
     </div>

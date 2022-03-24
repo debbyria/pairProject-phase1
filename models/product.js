@@ -12,11 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Product.belongsTo(models.Category, {foreignKey : 'CategoryId'})
+      Product.hasMany(models.User, {foreignKey : 'ProductId'})
     }
 
-    get formatPrice () {
+    formatPrice () {
       return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(this.price)
     }
+
   }
   Product.init({
     productName: DataTypes.STRING,

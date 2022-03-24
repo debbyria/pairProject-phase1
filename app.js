@@ -30,7 +30,6 @@ app.post('/login', Controller.loginPost)
 
 
 app.use((req, res, next) => {
-  console.log(req.session)
   console.log('Time:', Date.now())
 
   if(!req.session.userId) {
@@ -42,7 +41,7 @@ app.use((req, res, next) => {
 })
 
 app.use((req, res, next) => {
-  console.log(req.session)
+  console.log(req.session, 'ini req session')
   console.log('Time:', Date.now())
 
   if(req.session.userId && req.session.membership !== 'VIP') {
@@ -56,6 +55,10 @@ app.use((req, res, next) => {
 app.get('/logout', Controller.getLogOut)
 
 app.get('/products', Controller.products)
+
+app.get('/products/:productId', Controller.detailProduct)
+
+app.get('/products/:productId/:userId', Controller.buy)
 
 
 

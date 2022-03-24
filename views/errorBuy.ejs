@@ -197,27 +197,13 @@
         justify-content: center;
         height: 100%;
       ">
-    <p class="title" style="color: rgb(114, 109, 109);">Product Detail</p>
-      <div style="
-          background-color: white;
-          margin: 0px 80px;
-          padding: 30px 80px;
-          border-radius: 20px;
-        ">
-      <h2 class="title" style="font-size: 50px;"><%= product.productName %> </h2>
       <div style="display: flex; align-items: center; flex-direction: column; width: 15vw; height: 15vw;">
-        <img style="width: 19vw; height: 19vw; align-items: center;" src="<%= product.imageUrl %>"> 
-      </div><br><br><br>
-      <div style="font-size: 20px;">
-        <p><b style="font-weight: 700;">Category: </b><%= product.Category.categoryName %> </p><br>
-        <p><b style="font-weight: 700;">Updated At: </b><%= formatDate(product.updatedAt) %> </p><br>
-        <p style="font-weight: 700;"><b>Price: </b><%= product.formatPrice() %> </p><br>
-        <b style="font-weight: 700;">Description: </b>
-        <pre style="font-family: Cantarell;"><%= product.description %></pre>
-      </div><br>
-      <div class="w3-container">
-        <p><button class="w3-button w3-pink"><a href="http://localhost:3000/products/<%= product.id %>/<%= userId %>">Buy Now</a></button></p>    
+        <img style="width: 12vw; height: 12vw; align-items: center;" src="https://cdn-icons-png.flaticon.com/512/148/148766.png"> 
       </div>
+      <h2 class="title" style="font-size: 40px;">Error!</h2><br>
+      <h2 class="title" style="font-size: 20px;">Chingu, We're sorry that you already purchase before..</h2>
+      <h2 class="title" style="font-size: 20px;">User only can purchase once due to high demand session.</h2>
+      <h2 class="title" style="font-size: 20px;">But don't worry, Chingu, you can still look our products instead.ヾ(●⌒∇⌒●)ﾉ </h2>
       
       </div>
     </div>

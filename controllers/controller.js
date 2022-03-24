@@ -1,7 +1,7 @@
 const { Product, Category, User, Profile } = require('../models/index')
 const {Op} = require('sequelize')
 const bcrypt = require('bcryptjs') 
-const myFunction = require('../helpers/showPassword')
+const formatDate = require('../helpers/formatDate')
 
 class Controller {
 
@@ -12,12 +12,14 @@ class Controller {
   static products(req, res) {
     let keyword = req.query.search
     let sort = req.query.sortBy
-    let sortResult
-
+    let sortCategory = req.query.category
+    console.log(req.session.userName, 'ini req session dari hom')
+    
     if (!keyword) {
       keyword = ''
     }
-
+    
+    let sortResult
     if (sort === 'high') {
       sortResult = [['price', 'DESC']]
     } else if (sort === 'low') {
@@ -26,16 +28,25 @@ class Controller {
       sortResult = [['productName', 'ASC']]
     }
 
+    let whereResult = {
+      productName: {
+        [Op.iLike]: `%${keyword}%`
+      }
+    }
+
+    if (sortCategory) {
+      whereResult = {
+        ...whereResult,
+        CategoryId: +sortCategory,
+      }
+    }
+
     Product.findAll({
       order: sortResult,
       include: {
         model: Category
       },
-      where: {
-        productName: {
-          [Op.iLike]: `%${keyword}%`
-        }
-      }
+      where: whereResult
     }).then(data => {
       res.render('products', { products: data, Product })
     }).catch(error => {
@@ -83,12 +94,8 @@ class Controller {
           let isValidPassword = bcrypt.compareSync(password, user.password)
 
           if (isValidPassword) {
-
-
             req.session.userId = user.id
             req.session.membership = user.membership
-
-
             return res.redirect("/products")
           } else {
             let error = "invalid username/password"
@@ -111,6 +118,63 @@ class Controller {
       } else {
         res.redirect('/login')
       }
+    })
+
+  }
+
+  static detailProduct (req, res) {
+    const id = req.params.productId
+    const userId = req.session.userId
+   
+    Product.findOne({
+      include: {
+        model: Category
+      },
+      where: {
+        id
+      }
+    }).then(product => {
+      res.render('detailProduct', { product, Product, formatDate, userId })
+    }).catch(error => {
+      console.log(error)
+      res.send(error)
+    })
+  }
+
+  static buy (req, res) {
+
+    const userId = req.session.userId
+    const productId = req.params.productId
+
+    User.findByPk(userId)
+      .then((user) => {
+        if (user.ProductId === null) {
+          return [User.update({
+            ProductId: +productId
+          }, {where: {
+            id: userId
+          }}), 'success']
+        } else {
+          return [User.findOne({
+            where: {
+              id: userId
+            },
+            include: {
+              model: Product
+            }
+          }), 'error']
+        }
+    }).then(result => {
+      console.log(result)
+      if (result[1] === 'error') {
+        res.render('errorBuy')
+      } else {
+        res.render('successBuy')
+      }
+
+    }).catch(err => {
+      console.log(err)
+      res.send(err)
     })
 
   }

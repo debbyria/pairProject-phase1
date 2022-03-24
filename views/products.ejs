@@ -9,6 +9,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cantarell&family=Dosis:wght@200&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barriecito&family=Handlee&family=Nunito:wght@908;1000&family=Space+Mono&display=swap" rel="stylesheet">
+    <style>
+
+        a:hover {
+            color: hotpink;
+            text-decoration: underline;
+        }
+
+    </style>
     <style>
         * {
             margin: 0px;
@@ -161,10 +172,10 @@
 <body style="font-family: 'Cantarell', sans-serif;">
     <div class="topnav">
         <a class="active" href="/products">Home</a>
-        <a href="/products/accessories">Accessories</a>
-        <a href="/products/album">Album</a>
-        <a href="/products/cheering">Cheering</a>
-        <a href="/products/fashion">Fashion</a>
+        <a href="/products?category=1">Cheering</a>
+        <a href="/products?category=2">Accessories</a>
+        <a href="/products?category=3">Album</a>
+        <a href="/products?category=4">Fashion</a>
         <div class="search-container">
             <form action="/products">
                 <a class="active" href="/logout" style="background-color: rgb(255, 49, 49); size: 10px; float: right; font-size: 16px; padding: 12px;">Logout</a>
@@ -174,26 +185,23 @@
         </div>
     </div>
     <div class="header">
-        <h1 style="color: rgb(255, 255, 255);">Annyeong Store</h1>
-        <div>
-            
-        </div>
+        <h1 style="color: rgb(255, 255, 255); font-family: 'Nunito', sans-serif; font-size: 70px;">Annyeong Store 안녕</h1>
     </div><br>
     <div style="padding-top: 20px; padding-left: 1500px;">
         Sort by
-        <a href="/products?sortBy=high">Highest Price</a>
-        <a href="/products?sortBy=low">Lowest Price</a>
+        <a style="text-decoration: none;" href="/products?sortBy=high">Highest Price</a>
+        <a style="text-decoration: none;" href="/products?sortBy=low">Lowest Price</a>
     </div><br>
     <div class="content-container">
       <% products.forEach(el => {%>
         <div class="card">
-            <img src="<%= el.imageUrl %>">
+            <a href="/products/<%= el.id %>"><img src="<%= el.imageUrl %>"></a>
             <div style="text-align: center;">
-                <h3 style="font-weight: 200;"><%= el.productName %></h3>
+                <h3 style="font-weight: 200;"><a style="color: rgb(32, 32, 32); text-decoration: none;" href="/products/<%= el.id %>"><%= el.productName %></a></h3>
             </div>
-            <h3 style="color: maroon;"><%= el.formatPrice %></h3>
+            <h3 style="color: maroon;"><%= el.formatPrice() %></h3>
             <h4><%= el.Category.categoryName %></h4>
-            <a class="btn btn-delete" href="http://localhost:3000/delete/<%= el.id %>">Buy now</a>
+            <!-- <a class="btn btn-delete" href="http://localhost:3000/delete/<%= el.id %>">Buy now</a> -->
         </div>
       <%}) %> 
     </div>
