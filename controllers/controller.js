@@ -1,4 +1,5 @@
 const { Product, Category, User, Profile } = require('../models/index')
+const {Op} = require('sequelize')
 const bcrypt = require('bcryptjs') 
 const myFunction = require('../helpers/showPassword')
 
@@ -9,10 +10,31 @@ class Controller {
   }
 
   static products(req, res) {
+    let keyword = req.query.search
+    let sort = req.query.sortBy
+    let sortResult
+
+    if (!keyword) {
+      keyword = ''
+    }
+
+    if (sort === 'high') {
+      sortResult = [['price', 'DESC']]
+    } else if (sort === 'low') {
+      sortResult = [['price', 'ASC']]
+    } else {
+      sortResult = [['productName', 'ASC']]
+    }
+
     Product.findAll({
-      order: [['productName', 'ASC']],
+      order: sortResult,
       include: {
         model: Category
+      },
+      where: {
+        productName: {
+          [Op.iLike]: `%${keyword}%`
+        }
       }
     }).then(data => {
       res.render('products', { products: data, Product })
@@ -45,7 +67,8 @@ class Controller {
   }
 
   static loginForm(req, res) {
-    res.render("login", { myFunction })
+    const err = req.query.error
+    res.render("login", { err })
   }
 
   static loginPost(req, res) {
