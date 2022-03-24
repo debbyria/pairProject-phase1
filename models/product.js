@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Product.belongsTo(models.Category, {foreignKey : 'CategoryId'})
     }
+
+    get formatPrice () {
+      return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(this.price)
+    }
   }
   Product.init({
     productName: DataTypes.STRING,
